@@ -1,5 +1,6 @@
 import pynmea2, serial, os, time, sys, glob, datetime
 from porty import _scan_ports
+from pynmea2 import nmea
 
 def logfilename():
     now = datetime.datetime.now()
@@ -35,8 +36,10 @@ try:
                         # KeyboardInterrupt
                         while True:
                             line = ser.readline()
-                            print(line.decode('ascii', errors='replace').strip())
-                            f.write(line)
+                            line_nmea = pynmea2.parse(line.decode('ascii', errors='replace'))
+                            depth = line_nmea.depth_meters
+                            # print(line.decode('ascii', errors='replace').strip())
+                            f.write(depth)
                 
             except Exception as e:
                 sys.stderr.write('Error reading serial port %s: %s\n' % (type(e).__name__, e))
