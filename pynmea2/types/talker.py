@@ -1037,3 +1037,10 @@ class ALK(TalkerSentence,SeaTalk):
         ("Data Byte 9", "data_byte9")
     )
 
+# GPEMA - signal strength (relative)
+class EMA(TalkerSentence):
+    fields = (
+        ("Signal amplitude strength", "strength"),
+        ("Percentile", "units")
+    )
+
